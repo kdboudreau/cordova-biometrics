@@ -1,1 +1,0 @@
-# testing cordova app creation
