@@ -1,15 +1,33 @@
 {
     "name": "com.example.hello",
-    "displayName": "cordovaBiometrics",
+    "displayName": "HelloWorld",
     "version": "1.0.0",
     "description": "A sample Apache Cordova application that responds to the deviceready event.",
     "main": "index.js",
     "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1"
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "prepare": "cordova prepare --verbose"
     },
     "keywords": [
         "ecosystem:cordova"
     ],
     "author": "Apache Cordova Team",
-    "license": "Apache-2.0"
+    "license": "Apache-2.0",
+    "cordova": {
+        "platforms": [
+            "android",
+            "ios"
+        ],
+        "plugins": {
+            "cordova-plugin-whitelist": {}
+        }
+    },
+    "dependencies": {
+        "cordova-android": "^7.1.4",
+        "cordova-ios": "^4.5.5",
+        "core-util-is": "^1.0.2"
+    },
+    "devDependencies": {
+        "cordova-plugin-whitelist": "1"
+    }
 }
