@@ -1,3 +1,3 @@
 # testing cordova app creation
 
-trying to add platforms
+this is my basic cordova app
