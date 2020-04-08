@@ -13,9 +13,7 @@
       "id": "cordova-plugin-fingerprint-aio"
     },
     "is_top_level": true,
-    "variables": {
-      "FACEID_USAGE_DESCRIPTION": " "
-    }
+    "variables": {}
   },
   "cordova-plugin-add-swift-support": {
     "source": {

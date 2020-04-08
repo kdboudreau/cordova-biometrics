@@ -1,10 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget id="com.example.hello" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-<<<<<<< HEAD
-    <name>HellowWorld</name>
-=======
     <name>HelloWorld</name>
->>>>>>> 1cc6ddc45c2c9dd4b7aacff4a5055552189e0d25
     <description>
         A sample Apache Cordova application that responds to the deviceready event.
     </description>
@@ -27,10 +23,6 @@
         <allow-intent href="itms:*" />
         <allow-intent href="itms-apps:*" />
     </platform>
-<<<<<<< HEAD
-</widget>
-=======
     <engine name="android" spec="^7.1.4" />
     <engine name="ios" spec="^4.5.5" />
 </widget>
->>>>>>> 1cc6ddc45c2c9dd4b7aacff4a5055552189e0d25
