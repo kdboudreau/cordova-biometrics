@@ -26,7 +26,8 @@
     "dependencies": {
         "cordova-android": "^7.1.4",
         "cordova-ios": "^4.5.5",
-        "core-util-is": "^1.0.2"
+        "core-util-is": "^1.0.2",
+        "xcode": "^2.1.0"
     },
     "devDependencies": {
         "cordova-plugin-whitelist": "1"
