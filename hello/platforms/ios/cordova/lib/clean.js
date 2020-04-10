@@ -20,7 +20,7 @@
 var Q = require('q');
 var path = require('path');
 var shell = require('shelljs');
-var superspawn = require('cordova-common').superspawn;
+var spawn = require('./spawn');
 
 var projectPath = path.join(__dirname, '..', '..');
 
@@ -33,9 +33,9 @@ module.exports.run = function () {
         return Q.reject('No Xcode project found in ' + projectPath);
     }
 
-    return superspawn.spawn('xcodebuild', ['-project', projectName, '-configuration', 'Debug', '-alltargets', 'clean'], { cwd: projectPath, printCommand: true, stdio: 'inherit' })
+    return spawn('xcodebuild', ['-project', projectName, '-configuration', 'Debug', '-alltargets', 'clean'], projectPath)
         .then(function () {
-            return superspawn.spawn('xcodebuild', ['-project', projectName, '-configuration', 'Release', '-alltargets', 'clean'], { cwd: projectPath, printCommand: true, stdio: 'inherit' });
+            return spawn('xcodebuild', ['-project', projectName, '-configuration', 'Release', '-alltargets', 'clean'], projectPath);
         }).then(function () {
             return shell.rm('-rf', path.join(projectPath, 'build'));
         });

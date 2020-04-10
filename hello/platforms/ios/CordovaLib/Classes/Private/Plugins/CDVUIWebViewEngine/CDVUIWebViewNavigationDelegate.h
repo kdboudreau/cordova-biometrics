@@ -17,8 +17,6 @@
  under the License.
  */
 
-#if !WK_WEB_VIEW_ONLY
-
 #import <UIKit/UIKit.h>
 #import "CDVUIWebViewEngine.h"
 
@@ -29,5 +27,3 @@
 - (instancetype)initWithEnginePlugin:(CDVPlugin*)enginePlugin;
 
 @end
-
-#endif

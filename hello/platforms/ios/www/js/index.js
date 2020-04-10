@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -16,6 +17,8 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+=======
+>>>>>>> 1cc6ddc45c2c9dd4b7aacff4a5055552189e0d25
 var app = {
     // Application Constructor
     initialize: function() {
@@ -23,9 +26,13 @@ var app = {
     },
 
     // deviceready Event Handler
+<<<<<<< HEAD
     //
     // Bind any cordova events here. Common events are:
     // 'pause', 'resume', etc.
+=======
+    // Bind any cordova events here. Common events are: 'pause', 'resume', etc.
+>>>>>>> 1cc6ddc45c2c9dd4b7aacff4a5055552189e0d25
     onDeviceReady: function() {
         this.receivedEvent('deviceready');
     },

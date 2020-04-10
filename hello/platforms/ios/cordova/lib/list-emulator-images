@@ -19,8 +19,11 @@
        under the License.
 */
 
-var Q = require('q');
-var iossim = require('ios-sim');
+
+var Q = require('q'),
+    iossim = require('ios-sim'),
+    exec = require('child_process').exec,
+    check_reqs = require('./check_reqs');
 
 /**
  * Gets list of iOS devices available for simulation
@@ -29,6 +32,7 @@ var iossim = require('ios-sim');
 function listEmulatorImages () {
     return Q.resolve(iossim.getdevicetypes());
 }
+
 
 exports.run = listEmulatorImages;
 

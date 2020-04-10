@@ -17,7 +17,7 @@
  under the License.
  */
 
-#import <Cordova/CDVPlugin.h>
+#import "CDVPlugin.h"
 
 #define kCDVLocalStorageErrorDomain @"kCDVLocalStorageErrorDomain"
 #define kCDVLocalStorageFileOperationError 1

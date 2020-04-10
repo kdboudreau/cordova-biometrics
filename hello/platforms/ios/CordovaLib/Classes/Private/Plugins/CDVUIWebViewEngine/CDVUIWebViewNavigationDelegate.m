@@ -17,8 +17,6 @@
  under the License.
  */
 
-#if !WK_WEB_VIEW_ONLY
-
 #import "CDVUIWebViewNavigationDelegate.h"
 #import <Cordova/CDVViewController.h>
 #import <Cordova/CDVCommandDelegateImpl.h>
@@ -96,7 +94,7 @@
     if ([url isFileURL]) {
         return YES;
     }
-
+    
     return NO;
 }
 
@@ -122,7 +120,7 @@
      */
     BOOL anyPluginsResponded = NO;
     BOOL shouldAllowRequest = NO;
-
+    
     for (NSString* pluginName in vc.pluginObjects) {
         CDVPlugin* plugin = [vc.pluginObjects objectForKey:pluginName];
         SEL selector = NSSelectorFromString(@"shouldOverrideLoadWithRequest:navigationType:");
@@ -134,7 +132,7 @@
             }
         }
     }
-
+    
     if (anyPluginsResponded) {
         return shouldAllowRequest;
     }
@@ -148,10 +146,8 @@
     } else {
         [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:CDVPluginHandleOpenURLNotification object:url]];
     }
-
+    
     return NO;
 }
 
 @end
-
-#endif

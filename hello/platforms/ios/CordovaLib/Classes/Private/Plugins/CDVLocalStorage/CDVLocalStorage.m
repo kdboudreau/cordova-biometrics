@@ -18,24 +18,18 @@
  */
 
 #import "CDVLocalStorage.h"
-#import <Cordova/CDV.h>
+#import "CDV.h"
 
 @interface CDVLocalStorage ()
 
 @property (nonatomic, readwrite, strong) NSMutableArray* backupInfo;  // array of CDVBackupInfo objects
-#if !WK_WEB_VIEW_ONLY
 @property (nonatomic, readwrite, weak) id <UIWebViewDelegate> webviewDelegate;
-#endif
 
 @end
 
 @implementation CDVLocalStorage
 
-#if WK_WEB_VIEW_ONLY
-@synthesize backupInfo;
-#else
 @synthesize backupInfo, webviewDelegate;
-#endif
 
 - (void)pluginInitialize
 {

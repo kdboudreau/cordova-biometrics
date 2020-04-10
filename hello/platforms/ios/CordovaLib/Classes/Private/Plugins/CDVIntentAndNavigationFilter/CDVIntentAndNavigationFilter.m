@@ -75,10 +75,10 @@
 {
     // a URL can only allow-intent OR allow-navigation, if both are specified,
     // only allow-navigation is allowed
-
+    
     BOOL allowNavigationsPass = [navigationsWhitelist URLIsAllowed:url logFailure:NO];
     BOOL allowIntentPass = [intentsWhitelist URLIsAllowed:url logFailure:NO];
-
+    
     if (allowNavigationsPass && allowIntentPass) {
         return CDVIntentAndNavigationFilterValueNavigationAllowed;
     } else if (allowNavigationsPass) {
@@ -86,7 +86,7 @@
     } else if (allowIntentPass) {
         return CDVIntentAndNavigationFilterValueIntentAllowed;
     }
-
+    
     return CDVIntentAndNavigationFilterValueNoneAllowed;
 }
 
@@ -95,30 +95,22 @@
     return [[self class] filterUrl:url intentsWhitelist:self.allowIntentsWhitelist navigationsWhitelist:self.allowNavigationsWhitelist];
 }
 
-#if WK_WEB_VIEW_ONLY
-#define CDVWebViewNavigationTypeLinkClicked 0
-#define CDVWebViewNavigationTypeOther 5
-#else
-#define CDVWebViewNavigationTypeLinkClicked UIWebViewNavigationTypeLinkClicked
-#define CDVWebViewNavigationTypeOther UIWebViewNavigationTypeOther
-#endif
-
-+ (BOOL)shouldOpenURLRequest:(NSURLRequest*)request navigationType:(CDVWebViewNavigationType)navigationType
++ (BOOL)shouldOpenURLRequest:(NSURLRequest*)request navigationType:(UIWebViewNavigationType)navigationType
 {
-    return (CDVWebViewNavigationTypeLinkClicked == navigationType ||
-        (CDVWebViewNavigationTypeOther == navigationType &&
+    return (UIWebViewNavigationTypeLinkClicked == navigationType ||
+        (UIWebViewNavigationTypeOther == navigationType &&
          [[request.mainDocumentURL absoluteString] isEqualToString:[request.URL absoluteString]]
          )
         );
 }
 
-+ (BOOL)shouldOverrideLoadWithRequest:(NSURLRequest*)request navigationType:(CDVWebViewNavigationType)navigationType filterValue:(CDVIntentAndNavigationFilterValue)filterValue
++ (BOOL)shouldOverrideLoadWithRequest:(NSURLRequest*)request navigationType:(UIWebViewNavigationType)navigationType filterValue:(CDVIntentAndNavigationFilterValue)filterValue
 {
     NSString* allowIntents_whitelistRejectionFormatString = @"ERROR External navigation rejected - <allow-intent> not set for url='%@'";
     NSString* allowNavigations_whitelistRejectionFormatString = @"ERROR Internal navigation rejected - <allow-navigation> not set for url='%@'";
-
+    
     NSURL* url = [request URL];
-
+    
     switch (filterValue) {
         case CDVIntentAndNavigationFilterValueNavigationAllowed:
             return YES;
@@ -126,23 +118,34 @@
             // only allow-intent if it's a UIWebViewNavigationTypeLinkClicked (anchor tag) OR
             // it's a UIWebViewNavigationTypeOther, and it's an internal link
             if ([[self class] shouldOpenURLRequest:request navigationType:navigationType]){
-                [[UIApplication sharedApplication] openURL:url options:@{} completionHandler:nil];
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 100000
+                // CB-11895; openURL with a single parameter is deprecated in iOS 10
+                // see https://useyourloaf.com/blog/openurl-deprecated-in-ios10
+                if ([[UIApplication sharedApplication] respondsToSelector:@selector(openURL:options:completionHandler:)]) {
+                    [[UIApplication sharedApplication] openURL:url options:@{} completionHandler:nil];
+                } else {
+                    [[UIApplication sharedApplication] openURL:url];
+                }
+#else
+                // fall back if on older SDK
+                [[UIApplication sharedApplication] openURL:url];
+#endif
             }
-
+            
             // consume the request (i.e. no error) if it wasn't handled above
             return NO;
         case CDVIntentAndNavigationFilterValueNoneAllowed:
             // allow-navigation attempt failed for sure
             NSLog(@"%@", [NSString stringWithFormat:allowNavigations_whitelistRejectionFormatString, [url absoluteString]]);
             // anchor tag link means it was an allow-intent attempt that failed as well
-            if (CDVWebViewNavigationTypeLinkClicked == navigationType) {
+            if (UIWebViewNavigationTypeLinkClicked == navigationType) {
                 NSLog(@"%@", [NSString stringWithFormat:allowIntents_whitelistRejectionFormatString, [url absoluteString]]);
             }
             return NO;
     }
 }
 
-- (BOOL)shouldOverrideLoadWithRequest:(NSURLRequest*)request navigationType:(CDVWebViewNavigationType)navigationType
+- (BOOL)shouldOverrideLoadWithRequest:(NSURLRequest*)request navigationType:(UIWebViewNavigationType)navigationType
 {
     return [[self class] shouldOverrideLoadWithRequest:request navigationType:navigationType filterValue:[self filterUrl:request.URL]];
 }
