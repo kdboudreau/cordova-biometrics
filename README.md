@@ -1,4 +1,4 @@
 # cordova app with biometrics
 
-this is my cordova app
-will be able to login with biometrics
+This is my cordova app!
+I will be able to login with biometrics.
