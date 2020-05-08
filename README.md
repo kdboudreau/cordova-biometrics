@@ -3,3 +3,5 @@
 This is my cordova app!
 
 I will be able to login with biometrics.
+
+Need to add certs next
