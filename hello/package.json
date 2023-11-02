@@ -26,7 +26,7 @@
     "dependencies": {
         "cordova-android": "^7.1.4",
         "cordova-ios": "^4.5.5",
-        "cordova-plugin-fingerprint-aio": "3.0.1",
+        "cordova-plugin-fingerprint-aio": "5.0.1",
         "core-util-is": "^1.0.2",
         "xcode": "^2.1.0"
     },
